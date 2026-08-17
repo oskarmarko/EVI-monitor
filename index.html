@@ -28,7 +28,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-seri
 #diff-btn.open{background:#0f7878;color:#fff}
 
 #wrap{flex:1;display:flex;flex-direction:column;overflow:hidden;gap:0;padding:3px}
-#row{display:flex;flex:1;gap:3px;min-height:80px}
+#row{display:flex;flex:1;gap:3px;min-height:80px;overflow:hidden}
 #resizer{display:none;height:6px;background:#c8d4e0;cursor:row-resize;flex-shrink:0;border-radius:3px;margin:2px 0;position:relative;transition:background .15s}
 #resizer:hover,#resizer.active{background:#4a90c8}
 #resizer::after{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:36px;height:4px;border-top:1px solid #aaa;border-bottom:1px solid #aaa}
@@ -560,7 +560,7 @@ function init(){
     diffBtn.classList.toggle('open',S.diffOpen);
     diffBtn.innerHTML=S.diffOpen?t('hideDiff'):t('showDiff');
     const rz2=document.getElementById('resizer');
-    if(!S.diffOpen){const row=document.getElementById('row');row.style.flex='1';row.style.height='';rz2.style.display='none';setTimeout(()=>{mL.invalidateSize();mR.invalidateSize();},50);}
+    if(!S.diffOpen){const row=document.getElementById('row');row.style.flex='1';row.style.height='';rz2.style.display='none';setTimeout(()=>{mL.invalidateSize();mR.invalidateSize();},30);setTimeout(()=>{refreshAll();},80);}
     else{rz2.style.display='block';}
     if(S.diffOpen) setTimeout(()=>{
       mD.invalidateSize();
