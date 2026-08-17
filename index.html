@@ -560,8 +560,16 @@ function init(){
     diffBtn.classList.toggle('open',S.diffOpen);
     diffBtn.innerHTML=S.diffOpen?t('hideDiff'):t('showDiff');
     const rz2=document.getElementById('resizer');
-    if(!S.diffOpen){const row=document.getElementById('row');row.style.flex='1';row.style.height='';rz2.style.display='none';setTimeout(()=>{mL.invalidateSize();mR.invalidateSize();},30);setTimeout(()=>{refreshAll();},80);}
-    else{rz2.style.display='block';}
+    if(!S.diffOpen){
+      const row=document.getElementById('row');
+      row.style.flex='1';row.style.height='';rz2.style.display='none';
+      let done=0;
+      const onR=()=>{if(++done>=2){mL.off('resize',onR);mR.off('resize',onR);refreshAll();}};
+      mL.on('resize',onR);mR.on('resize',onR);
+      mL.invalidateSize();mR.invalidateSize();
+      // fallback ako resize event ne okine
+      setTimeout(()=>{if(done<2){mL.off('resize',onR);mR.off('resize',onR);refreshAll();}},300);
+    } else{rz2.style.display='block';}
     if(S.diffOpen) setTimeout(()=>{
       mD.invalidateSize();
       mD.setView(mL.getCenter(),mL.getZoom(),{animate:false});
