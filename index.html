@@ -259,7 +259,7 @@ function gradColor(v,stops){
 }
 
 const GR_MAIN=[[0,'#1a9641'],[20,'#a6d96a'],[40,'#ffffbf'],[60,'#fdae61'],[80,'#f46d43'],[100,'#d7191c']];
-const GR_DIFF=[[-40,'#c7e9c0'],[-10,'#74c476'],[0,'#238b45'],[5,'#ffffb2'],[15,'#fdae61'],[30,'#f46d43'],[40,'#d7191c']];
+const GR_DIFF=[[-60,'#c7e9c0'],[-15,'#74c476'],[0,'#238b45'],[10,'#ffffb2'],[30,'#fdae61'],[55,'#f46d43'],[85,'#d7191c']];
 
 function mainColor(pct){return gradColor(pct,GR_MAIN);}
 function diffColor(d){return gradColor(d,GR_DIFF);}
@@ -464,7 +464,7 @@ function diffLegend(el,dmet){
   }
   const unit=dmet==='dha'?' ha':'%';
   const lbl=dmet==='dpct'?t('dPct')+' EVI':t('dHa');
-  const steps=[[-40,-10,'#c7e9c0','#74c476'],[-10,0,'#74c476','#238b45'],[0,5,'#238b45','#ffffb2'],[5,15,'#ffffb2','#fdae61'],[15,30,'#fdae61','#f46d43'],[30,40,'#f46d43','#d7191c']];
+  const steps=[[-60,-15,'#c7e9c0','#74c476'],[-15,0,'#74c476','#238b45'],[0,10,'#238b45','#ffffb2'],[10,30,'#ffffb2','#fdae61'],[30,55,'#fdae61','#f46d43'],[55,85,'#f46d43','#d7191c']];
   el.innerHTML=`<div class="ltitle">${lbl} (B−A)</div>`
     +steps.map(([a,b,c0,c1])=>`<div class="li"><div class="ls" style="background:linear-gradient(90deg,${c0},${c1})"></div><span>${a>0?'+':''}${a}${unit} → ${b>0?'+':''}${b}${unit}</span></div>`).join('')
     +`<div class="li" style="font-size:.64rem;color:#666;margin-top:4px">${t('legendBetter')} &nbsp; ${t('legendWorse')}</div>`;
